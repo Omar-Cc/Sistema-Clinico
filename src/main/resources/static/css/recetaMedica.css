@@ -1,0 +1,60 @@
+body {
+    background-color: #EDEEFF; 
+}
+
+.text-center1{
+   display: flex;
+   margin-top: -65px;
+   margin-bottom: 35px;
+   font-family: Arial, Helvetica, sans-serif;
+}
+
+.inventory-btn {
+    position: relative;
+    top: 0;
+    right: 0;
+}
+
+.prescription {
+    background-color: white; 
+    margin: 0;       
+    margin-bottom: -25px;
+}
+
+.save-print-btn {
+    margin-top: 20px;
+    padding: 10px 20px;
+    border-radius: 5px; 
+}
+
+.table.table-bordered.mt-4 {
+    width: 80%;            
+    margin: 0 auto;        
+    text-align: center;
+}
+
+.form-control.d-inline.w-50{
+    border-radius: 0;
+    border: 1px solid black;
+    margin-left: 10px;
+}
+
+.firma{
+    margin-right: 110px;  
+    margin-top: 20px;
+}
+
+.fecha{
+    margin-left: 110px;
+    margin-top: 20px;
+}
+
+.company{
+    margin-left: 15px;
+}
+
+.inventory-btn,.inventory-btn:hover{
+    background-color: #bfc0c2ee;
+    color: black;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}

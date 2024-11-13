@@ -1,0 +1,126 @@
+@charset "UTF-8";
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    background-color: #EDEEFF;
+}
+
+.offcanvas-header {
+    justify-content: center;
+}
+
+#offcanvasNavbar {
+    visibility: hidden;
+    background-color: #BECAE8;
+}
+
+.show-offcanvas {
+    visibility: visible !important;
+}
+
+.contenedor-arrow {
+    position: fixed;
+    top: 51%;
+    left: 7px;
+    font-size: 24px;
+    padding: 20px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.toggle-arrow {
+    position: fixed;
+    top: 50%;
+    left: 10px;
+    cursor: pointer;
+    font-size: 24px;
+    padding: 10px;
+    border-radius: 50%;
+    animation: acciones 1.25s infinite alternate;
+}
+
+.nav-pills .nav-link,
+.nav-pills .nav-link.active {
+    border: 2px solid #000;
+    border-radius: 15px;
+    padding: 17px;
+    background-color: #BECAE8;
+    color: #000000;
+}
+
+.nav-pills .nav-link.active {
+    background-color: #e3f2fd;
+    color: #000;
+}
+
+.nav-link:hover {
+    background-color: #e3f2fd;
+    color: #000;
+}
+
+.navbar {
+    position: relative;
+    height: 80px;
+}
+
+.container .mt-6 {
+    position: absolute;
+    background: white;
+    border-radius: 15px;
+    height: 400px;
+    align-content: center;
+    padding: 0 45px;  
+}
+
+.nav-link i {
+    margin-right: 9px;
+}
+
+.btn-dark {
+    border-radius: 20px;
+}
+
+.modal-body {
+    background-color: #e3f2fd
+}
+
+.btn-secondary {
+    margin-top: 20px;
+}
+
+.container .mt-6 th {
+    text-align: center;
+}
+
+
+h4 {
+    color: rgb(94, 80, 64);
+}
+
+#formNuevaCita {
+    background-color: white;
+    padding: 30px;
+    margin-left: 80px;
+    margin-right: 80px;
+    border-radius: 20px;
+}
+
+#Pago {
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+@keyframes acciones {
+    0% {
+        transform: scale(1);
+    }
+
+    100% {
+        transform: scale(0);
+    }
+}
+

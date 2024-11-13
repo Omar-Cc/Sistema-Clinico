@@ -1,0 +1,10 @@
+.custom-table-container {
+    background-color: #f0f4ff;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.page-item.active .page-link {
+    background-color: #333333;
+    border-color: #333333;
+}

@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formulario de Pasos con Progreso</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    integrity="sha384-k6RqeWeci5ZR/Lv4MR0sA0FfDOM+3U1k6dZ06M8zESgOVW/bRkYhbUQOs0eeyv3" crossorigin="anonymous">
+  <style>
+    .step {
+      display: none;
+    }
+
+    .step.active {
+      display: block;
+    }
+
+    .form-control {
+      border: none;
+      border-bottom: 2px solid #007bff;
+      /* Línea inferior */
+      border-radius: 0;
+      /* Sin esquinas redondeadas */
+    }
+
+    .form-control:focus {
+      box-shadow: none;
+      /* Sin sombra al enfocarse */
+      border-color: #0056b3;
+      /* Color de la línea inferior al enfocarse */
+    }
+
+    /* Evitar desplazamiento en la caja de entrada */
+    .input-container {
+      display: flex;
+      flex-wrap: wrap;
+      /* Permitir que los elementos se envuelvan */
+      margin-bottom: 15px;
+      /* Espacio entre las filas */
+    }
+
+    .input-container .form-label {
+      flex: 1;
+      /* Proporción para el label */
+      margin-right: 10px;
+      /* Espacio entre el label y el input */
+    }
+
+    .input-container .form-control {
+      flex: 1;
+      /* Proporción para el input */
+    }
+
+    .suggestion-item {
+      padding: 10px;
+      cursor: pointer;
+    }
+
+    .suggestion-item:hover {
+      background-color: #f0f0f0;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container mt-4">
+    <h1>Formulario de Registro con Progreso</h1>
+
+    <!-- Barra de progreso -->
+    <div class="progress" role="progressbar" aria-label="Progreso del formulario" aria-valuemin="0" aria-valuemax="100"
+      style="height: 15px;">
+      <div class="progress-bar" id="progress-bar" style="width: 0%"></div>
+    </div>
+
+    <!-- Primer paso -->
+    <div class="step active" id="step1">
+      <h3>Paso 1: Completar datos personales</h3>
+      <div class="mb-3">
+        <label for="nombre" class="form-label">Nombre</label>
+        <input type="text" class="form-control" id="nombre" placeholder="Ingrese su nombre">
+      </div>
+      <div class="mb-3">
+        <label for="apellido" class="form-label">Apellido</label>
+        <input type="text" class="form-control" id="apellido" placeholder="Ingrese su apellido">
+      </div>
+      <button class="btn btn-primary" onclick="nextStep(1)">Siguiente</button>
+    </div>
+
+    <!-- Segundo paso -->
+    <div class="step" id="step2">
+      <h3>Paso 2: Información de contacto</h3>
+      <div class="mb-3 input-container">
+        <label for="email" class="form-label">Correo electrónico</label>
+        <input type="email" class="form-control" id="email" placeholder="Ingrese su correo electrónico">
+      </div>
+      <div class="mb-3 input-container">
+        <label for="telefono" class="form-label">Teléfono</label>
+        <input type="tel" class="form-control" id="telefono" placeholder="Ingrese su número de teléfono">
+      </div>
+
+      <h4>Datos Adicionales</h4>
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label for="direccion" class="form-label">Dirección</label>
+          <input type="text" class="form-control" id="direccion" placeholder="Ingrese su dirección">
+        </div>
+        <div class="col-md-6 mb-3">
+          <label for="ciudad" class="form-label">Ciudad</label>
+          <input type="text" class="form-control" id="ciudad" placeholder="Ingrese su ciudad">
+        </div>
+        <div class="col-md-6 mb-3">
+          <label for="estado" class="form-label">Estado</label>
+          <input type="text" class="form-control" id="estado" placeholder="Ingrese su estado">
+        </div>
+        <div class="col-md-6 mb-3">
+          <label for="codigo_postal" class="form-label">Código Postal</label>
+          <input type="text" class="form-control" id="codigo_postal" placeholder="Ingrese su código postal">
+        </div>
+        <div class="col-md-6 mb-3">
+          <label for="pais" class="form-label">País</label>
+          <input type="text" class="form-control" id="pais" placeholder="Ingrese su país">
+        </div>
+        <div class="col-md-6 mb-3">
+          <label for="fecha_nacimiento" class="form-label">Fecha de Nacimiento</label>
+          <input type="date" class="form-control" id="fecha_nacimiento">
+        </div>
+        <div class="col-md-6 mb-3">
+          <label for="genero" class="form-label">Género</label>
+          <select class="form-control" id="genero">
+            <option value="">Seleccione</option>
+            <option value="masculino">Masculino</option>
+            <option value="femenino">Femenino</option>
+            <option value="otro">Otro</option>
+          </select>
+        </div>
+        <div class="col-md-6 mb-3">
+          <label for="ocupacion" class="form-label">Ocupación</label>
+          <input type="text" class="form-control" id="ocupacion" placeholder="Ingrese su ocupación">
+        </div>
+        <div class="col-md-6 mb-3">
+          <label for="empresa" class="form-label">Empresa</label>
+          <input type="text" class="form-control" id="empresa" placeholder="Ingrese su empresa">
+        </div>
+        <div class="col-md-6 mb-3">
+          <label for="comentarios" class="form-label">Comentarios</label>
+          <textarea class="form-control" id="comentarios" rows="3" placeholder="Ingrese sus comentarios"></textarea>
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-between mt-3">
+        <button class="btn btn-secondary" onclick="prevStep(1)">
+          <i class="fas fa-arrow-left"></i>
+        </button>
+        <button class="btn btn-primary" onclick="nextStep(2)">
+          <i class="fas fa-arrow-right"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Tercer paso -->
+    <div class="step" id="step3">
+      <h3>Paso 3: Confirmar y enviar</h3>
+      <p>Por favor, revisa la información ingresada en los pasos anteriores antes de enviarla.</p>
+
+      <p>Una vez que presiones "Enviar", tus datos serán registrados.</p>
+
+      <div class="d-flex justify-content-between mt-3">
+        <button class="btn btn-secondary" onclick="prevStep(2)">
+          <i class="fas fa-arrow-left"></i> Anterior
+        </button>
+        <button class="btn btn-success" onclick="submitForm()">
+          Enviar
+        </button>
+      </div>
+    </div>
+
+    <div class="progress-container" style="display: flex; align-items: center;">
+      <div class="progress" role="progressbar" aria-label="Example with label" aria-valuenow="25" aria-valuemin="0"
+        aria-valuemax="100" style="width: 100%;">
+      </div>
+      <span style="margin-left: 10px;">25%</span>
+    </div>
+
+    <div class="col-md-4 mb-3">
+      <label for="brand" class="font-weight-bold mb-2">Marca</label>
+      <input type="text" id="brandInput" class="form-control" placeholder="Ingrese la marca" autocomplete="off">
+      <div id="brandSuggestions" class="list-group mt-2"></div>
+    </div>
+
+</body>
+
+</html>
+
+<script>
+
+  // Función para ir al siguiente paso
+  function nextStep(step) {
+    if (validateStep(step)) {
+      document.getElementById('step' + step).classList.remove('active');
+      document.getElementById('step' + (step + 1)).classList.add('active');
+      updateProgressBar(step + 1);
+    } else {
+      alert('Completa todos los campos antes de continuar.');
+    }
+  }
+
+  // Función para volver al paso anterior
+  function prevStep(step) {
+    document.getElementById('step' + (step + 1)).classList.remove('active');
+    document.getElementById('step' + step).classList.add('active');
+    updateProgressBar(step);
+  }
+
+  // Validación básica de los campos del formulario
+  function validateStep(step) {
+    if (step === 1) {
+      const nombre = document.getElementById('nombre').value;
+      const apellido = document.getElementById('apellido').value;
+      return nombre !== '' && apellido !== '';
+    }
+    if (step === 2) {
+      const email = document.getElementById('email').value;
+      const telefono = document.getElementById('telefono').value;
+      return email !== '' && telefono !== '';
+    }
+    return true;
+  }
+
+  // Función para actualizar la barra de progreso
+  function updateProgressBar(step) {
+    let progress = 0;
+    if (step === 1) {
+      progress = 25;
+    } else if (step === 2) {
+      progress = 50;
+    } else if (step === 3) {
+      progress = 100;
+    }
+    document.getElementById('progress-bar').style.width = progress + '%';
+  }
+
+  // Función para enviar el formulario (simulado)
+  function submitForm() {
+    alert('Formulario enviado con éxito.');
+    // Aquí se puede agregar la lógica para enviar los datos al servidor
+  }
+
+
+
+</script>
+<script>
+
+  const brands = ["Sony", "Samsung", "LG", "Panasonic", "Apple", "Dell", "HP", "Lenovo", "Acer", "Asus"];
+
+  const brandInput = document.getElementById("brandInput");
+  const brandSuggestions = document.getElementById("brandSuggestions");
+
+  brandInput.addEventListener("input", function () {
+    // Limpiar sugerencias previas
+    brandSuggestions.innerHTML = '';
+
+    const inputText = brandInput.value.toLowerCase();
+    if (inputText.length === 0) return; // Si no hay texto, no mostrar sugerencias
+
+    // Filtrar marcas que coincidan con lo ingresado
+    const filteredBrands = brands.filter(brand => brand.toLowerCase().includes(inputText));
+
+    // Crear los elementos de sugerencia
+    filteredBrands.forEach(brand => {
+      const suggestionItem = document.createElement("div");
+      suggestionItem.classList.add("suggestion-item", "list-group-item");
+      suggestionItem.textContent = brand;
+
+      // Al hacer clic en una sugerencia, colocar el texto en el input
+      suggestionItem.addEventListener("click", () => {
+        brandInput.value = brand;
+        brandSuggestions.innerHTML = ''; // Limpiar las sugerencias
+      });
+
+      brandSuggestions.appendChild(suggestionItem);
+    });
+  });
+</script>
+
+
+
+</body>
+
+</html>

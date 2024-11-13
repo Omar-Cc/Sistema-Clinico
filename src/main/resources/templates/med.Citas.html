@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es" layout:decorate="_layoutMedico">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabla de Citas</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/stylesmedico3.css" rel="stylesheet">
+</head>
+
+<body style="background-color:#EDEEFF;">
+    <div id="app" layout:fragment="content">
+        <div class="container pt-5">
+            <h1 class="mb-4">Citas</h1>
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <div class="input-group me-2">
+                    <span class="input-group-text">Fecha</span>
+                    <input type="text" class="form-control" placeholder="mm/dd/yyyy">
+                </div>
+                <div class="input-group w-50">
+                    <span class="input-group-text"><i class="bi bi-search"></i></span>
+                    <input type="text" class="form-control" placeholder="Nombre del Paciente o Dni">
+                </div>
+            </div>
+
+            <div class="custom-table-container">
+                <table class="table table-hover text-center">
+                    <thead>
+                        <tr>
+                            <th>Paciente</th>
+                            <th>Documento</th>
+                            <th>Fecha</th>
+                            <th>Horario</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="cita in paginatedCitas" :key="cita.id">
+                            <td>{{ cita.paciente }}</td>
+                            <td>{{ cita.documento }}</td>
+                            <td>{{ cita.fechaCita }}</td>
+                            <td>{{ cita.horaCita }}</td>
+                            <td><button class="btn btn-primary" @click="verCita(cita.id)">Ver cita</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <!-- Paginación -->
+                <nav aria-label="Page navigation">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item" :class="{ disabled: currentPage === 1 }">
+                            <a class="page-link" href="#" @click.prevent="changePage(currentPage - 1)">Anterior</a>
+                        </li>
+                        <li class="page-item" v-for="page in totalPages" :key="page"
+                            :class="{ active: currentPage === page }">
+                            <a class="page-link" href="#" @click.prevent="changePage(page)">{{ page }}</a>
+                        </li>
+                        <li class="page-item" :class="{ disabled: currentPage === totalPages }">
+                            <a class="page-link" href="#" @click.prevent="changePage(currentPage + 1)">Siguiente</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <script layout:fragment="script">
+        new Vue({
+            el: '#app',
+            data: {
+                citas: [],
+                currentPage: 1,
+                itemsPerPage: 5
+            },
+            computed: {
+                totalPages: function () {
+                    return Math.ceil(this.citas.length / this.itemsPerPage);
+                },
+                paginatedCitas: function () {
+                    const start = (this.currentPage - 1) * this.itemsPerPage;
+                    const end = start + this.itemsPerPage;
+                    return this.citas.slice(start, end);
+                }
+            },
+            methods: {
+                getCitas: function () {
+                    fetch('/api/citas/medico')
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Network response was not ok ' + response.statusText);
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            this.citas = data.map(cita => ({
+                                id: cita.id,
+                                paciente: cita.paciente,
+                                documento: cita.documento,
+                                fechaCita: cita.fechaCita,
+                                horaCita: cita.horaCita
+                            }));
+                        })
+                        .catch(error => {
+                            console.error('There was a problem with the fetch operation:', error);
+                        });
+                },
+                verCita: function (id) {
+                    try {
+                        window.location.href = `/medico/citas/cita/${id}`;
+                    } catch (error) {
+                        console.error('Error redirecting to cita:', error);
+                    }
+                },
+                changePage: function (page) {
+                    if (page >= 1 && page <= this.totalPages) {
+                        this.currentPage = page;
+                    }
+                }
+            },
+            mounted: function () {
+                this.getCitas();
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clinica Medic</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    <style>
+        .navbar {
+            background-color: #e3f2fd;
+            padding: 15px 20px;
+        }
+
+        .navbar-brand img {
+            height: 60px;
+        }
+
+        .nav-link {
+            font-weight: 500;
+            margin-right: 50px;
+        }
+
+        .nav-link:hover {
+            color: #5cd1f1;
+        }
+
+        .navbar-toggler {
+            border: none;
+        }
+
+        .navbar-toggler-icon {
+            color: #007bff;
+        }
+
+        .carousel-inner img {
+            height: 600px;
+            object-fit: cover;
+        }
+
+        .sedes {
+            margin-top: 20px;
+        }
+
+        .position-relative {
+            margin-bottom: 15px;
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .position-relative:hover .overlay {
+            opacity: 1;
+        }
+
+        .sede-name {
+            color: white;
+            font-size: 1.5em;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg">
+            <div class="container-fluid">
+                <a class="navbar-brand p-2" href="index.html">
+                    <img src="Logo.png" width="" height="60">
+                    <span class="ms-2">Clinica Medic</span>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
+                    <ul class="navbar-nav mb-2 mb   -lg-0 ">
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="index.html">Inicio</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#specialties">Especialidades</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#nosotros">Nosotros</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#sedes">Sedes</a>
+                        </li>
+                    </ul>
+                    <div class="d-flex">
+                        <a class="btn btn-outline-info me-3" href="/login">Iniciar Sesión</a>
+                        <a class="btn btn-outline-info" href="/register">Regístrate</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <div id="carouselExampleCaptions" class="carousel slide">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"
+                    aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1"
+                    aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2"
+                    aria-label="Slide 3"></button>
+            </div>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="/img/slide1.jpg" class="d-block w-100" alt="">
+                    <div class="carousel-caption d-none d-md-block text-black">
+                        <h5>First slide label</h5>
+                        <p>Some representative placeholder content for the first slide.</p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="/img/slide2.jpg" class="d-block w-100" alt="...">
+                    <div class="carousel-caption d-none d-md-block text-black">
+                        <h5>Second slide label</h5>
+                        <p>Some representative placeholder content for the second slide.</p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="/img/slide3.jpg" class="d-block w-100" alt="...">
+                    <div class="carousel-caption d-none d-md-block text-black">
+                        <h5>Third slide label</h5>
+                        <p>Some representative placeholder content for the third slide.</p>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"
+                data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions"
+                data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+
+        <section class="specialties" id="specialties">
+            <div class="container p-5">
+                <div>
+                    <h1 class="text-center mb-5">Conoce nuestras especialidades</h1>
+                </div>
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-3 g-5 justify-content-center">
+                    <div class="col mb-4">
+                        <div class="card text-center h-100">
+                            <img src="/img/Especialidades/esp-cardiologia.jpg" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title">Cardiología</h5>
+                                <p class="card-text">
+                                    Nuestra especialidad de Cardiología se centra en el diagnóstico, tratamiento
+                                    y prevención de problemas de salud relacionados con el corazón.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col mb-4">
+                        <div class="card text-center h-100">
+                            <img src="/img/Especialidades/esp-dermatologia.jpg" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title">Dermatología</h5>
+                                <p class="card-text">
+                                    Nos encargamos del estudio y tratamiento de enfermedades de la piel, cabello y uñas,
+                                    así como la prevención de problemas dermatológicos.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col mb-4">
+                        <div class="card text-center h-100">
+                            <img src="/img/Especialidades/esp-gastro.jpg" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title">Gastroenterología</h5>
+                                <p class="card-text">
+                                    Nos especializamos en el diagnóstico y tratamiento de trastornos del sistema
+                                    digestivo,
+                                    incluyendo el esófago, estómago, intestinos y hígado.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col mb-4">
+                        <div class="card text-center h-100">
+                            <img src="/img/Especialidades/esp-ginecologia.jpg" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title">Ginecología</h5>
+                                <p class="card-text">
+                                    Brindamos atención médica integral en salud femenina, abarcando desde la
+                                    adolescencia
+                                    hasta la menopausia.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col mb-4">
+                        <div class="card text-center h-100">
+                            <img src="/img/Especialidades/esp-oftalmologia.jpg" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title">Oftalmología</h5>
+                                <p class="card-text">
+                                    Nos enfocamos en el diagnóstico y tratamiento de enfermedades oculares, así como
+                                    en la corrección de problemas de visión mediante gafas o cirugía.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col mb-4">
+                        <div class="card text-center h-100">
+                            <img src="/img/Especialidades/esp-pediatria.jpg" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title">Pediatría</h5>
+                                <p class="card-text">
+                                    Proporcionamos atención médica integral a niños desde su nacimiento hasta la
+                                    adolescencia,
+                                    abordando tanto la salud física como la emocional.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col mb-4">
+                        <div class="card text-center h-100">
+                            <img src="/img/Especialidades/esp-traumatologia.jpg" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title">Traumatología</h5>
+                                <p class="card-text">
+                                    Nos dedicamos al diagnóstico y tratamiento de lesiones y enfermedades del sistema
+                                    musculoesquelético.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col mb-4">
+                        <div class="card text-center h-100">
+                            <img src="/img/Especialidades/esp-odontologi-a.jpg" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title">Odontología</h5>
+                                <p class="card-text">
+                                    Brindamos atención dental integral, incluyendo prevención, diagnóstico y tratamiento
+                                    de
+                                    enfermedades bucales y cuidado estético.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="info p-5" id="nosotros">
+            <div class="row">
+                <div class="col-12 col-md-5">
+                    <img src="/img/slide3.jpg" class="d-block w-100" alt="">
+                </div>
+                <div class="col-md-7">
+                    <h2 class="text-center">Clinica Medic</h2>
+                    <p class="m-5" style="line-height: 2;"> Esta clínica se dedica a proporcionar atención médica de
+                        alta calidad, ofreciendo una amplia gama de servicios
+                        especializados para el bienestar de sus pacientes. Con un equipo de profesionales altamente
+                        capacitados y
+                        tecnología de vanguardia, se enfoca en el diagnóstico preciso y el tratamiento efectivo. Aquí,
+                        la salud y la
+                        comodidad de los pacientes son la prioridad, asegurando un ambiente acogedor y un enfoque
+                        integral en cada
+                        consulta.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="sedes" id="sedes">
+            <div>
+                <h1 class="text-center mb-4">Visita nuestras sedes</h1>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="position-relative">
+                            <img src="/img/Especialidades/esp-cardiologia.jpg" class="img-fluid" alt="">
+                            <div class="overlay">
+                                <span class="sede-name">Sede Cardiología</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="position-relative">
+                            <img src="/img/Especialidades/esp-cardiologia.jpg" class="img-fluid" alt="">
+                            <div class="overlay">
+                                <span class="sede-name">Sede Cardiología</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="position-relative">
+                            <img src="/img/Especialidades/esp-cardiologia.jpg" class="img-fluid" alt="">
+                            <div class="overlay">
+                                <span class="sede-name">Sede Cardiología</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="position-relative">
+                            <img src="/img/Especialidades/esp-cardiologia.jpg" class="img-fluid" alt="">
+                            <div class="overlay">
+                                <span class="sede-name">Sede Cardiología</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+    </main>
+
+
+    <footer class="footer" style="background-image:url(/img/footer.jpg);">
+        <div class="container-fluid pt-5">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="row justify-content-between align-items-center text-white">
+                        <div class="col-12 col-md-4 d-flex flex-column align-items-center align-items-md-start">
+                            <img src="/img/Logo.png" alt="Logo" width="50" height="50" class="mb-3" />
+                            <small class="text-white text-uppercase fw-bold">LOGO</small>
+                            <p class="text-white text-uppercase fw-bold mb-0 mt-4 text-center text-md-start"
+                                style="font-size: small">
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste repellat quasi quidem
+                                exercitationem! Architecto nulla ab ex officia! Repellat beatae reprehenderit veniam
+                                error culpa. Molestiae illo culpa aperiam eaque ullam?
+                            </p>
+                        </div>
+
+                        <div
+                            class="col-12 col-md-8 d-flex justify-content-md-end flex-column flex-md-row gap-5 mt-4 mt-md-0">
+                            <div class="col-12 col-md-4">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button text-white text-uppercase fw-bold d-md-none"
+                                        type="button" data-bs-toggle="collapse" data-bs-target="#one"
+                                        aria-expanded="false" aria-controls="one">
+                                        Sobre nosotros
+                                    </button>
+                                </h2>
+                                <div class="mb-3 text-white text-uppercase fw-bold d-none d-md-block">
+                                    Sobre nosotros
+                                </div>
+                                <div class="collapse text-white d-md-block" id="one" data-bs-parent="#accordion">
+                                    <nav class="nav flex-column">
+                                        <p class="text-white">
+                                            <a class="text-reset text-decoration-none"
+                                                href="#specialties">Especialidades</a>
+                                        </p>
+                                        <p class="text-white">
+                                            <a class="text-reset text-decoration-none" href="#nosotros">Información</a>
+                                        </p>
+                                        <p class="text-white">
+                                            <a class="text-reset text-decoration-none" href="#sedes">Sedes</a>
+                                        </p>
+                                    </nav>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-md-4">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button text-white text-uppercase fw-bold d-md-none"
+                                        type="button" data-bs-toggle="collapse" data-bs-target="#two"
+                                        aria-expanded="false" aria-controls="two">
+                                        Nuestras redes
+                                    </button>
+                                </h2>
+                                <div class="mb-3 text-white text-uppercase fw-bold d-none d-md-block">
+                                    Nuestras redes
+                                </div>
+                                <div class="collapse text-white d-md-block" id="two" data-bs-parent="#accordion">
+                                    <nav class="nav flex-column">
+                                        <p class="text-white">
+                                            <a href="#" class="text-reset text-decoration-none">facebook</a>
+                                        </p>
+                                        <p class="text-white">
+                                            <a href="#" class="text-reset text-decoration-none">Instagram</a>
+                                        </p>
+                                        <p class="text-white">
+                                            <a href="#" class="text-reset text-decoration-none">Twitter</a>
+                                        </p>
+                                    </nav>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr class="border-white" />
+
+                    <div class="row justify-content-center">
+                        <div class="col-12 text-center">
+                            <small class="text-white">© 2024 Clinic Medic. Todos los derechos reservados</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>

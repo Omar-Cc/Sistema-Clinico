@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es" layout:decorate="_layoutMedico">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Historial Médico</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/css/stylesmedico.css" rel="stylesheet">
+</head>
+
+<body style="background-color:#EDEEFF;">
+	<div layout:fragment="content">
+		<div class="container pt-5">
+			<h2 class="mb-4">Historial Médico</h2>
+
+			<div class="d-flex justify-content-end mb-3">
+				<div class="input-group">
+					<span class="input-group-text bg-transparent border-0">
+						<i class="bi bi-search"></i>
+					</span>
+					<input type="text" class="form-control search-bar" placeholder="DNI o Nombre">
+				</div>
+			</div>
+
+			<div class="table-container">
+				<table class="table table-hover text-center">
+					<thead>
+						<tr>
+							<th>Código</th>
+							<th>Documento</th>
+							<th>Nombre del Paciente</th>
+							<th>Acciones</th>
+						</tr>
+					</thead>
+					<tbody>
+
+						<tr>
+							<td>AAAAAAAA</td>
+							<td>AAAAAAAA</td>
+							<td>AAAAAAAA</td>
+							<td>
+								<button class="btn btn-ver-historial">Ver Historial</button>
+							</td>
+						</tr>
+
+					</tbody>
+				</table>
+
+				<nav aria-label="Page navigation example">
+					<ul class="pagination justify-content-center">
+						<li class="page-item"><a class="page-link" href="#">1</a></li>
+						<li class="page-item"><a class="page-link" href="#">2</a></li>
+						<li class="page-item"><a class="page-link" href="#">3</a></li>
+						<li class="page-item"><a class="page-link" href="#">4</a></li>
+						<li class="page-item"><a class="page-link" href="#">5</a></li>
+						<li class="page-item"><span class="page-link">...</span></li>
+						<li class="page-item"><a class="page-link" href="#">20</a></li>
+					</ul>
+				</nav>
+			</div>
+		</div>
+	</div>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+	<script layout:fragment="script">
+	</script>
+</body>
+
+</html>

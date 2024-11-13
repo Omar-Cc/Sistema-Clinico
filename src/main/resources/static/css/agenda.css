@@ -1,0 +1,81 @@
+
+  
+  .calendar-container {
+    background-color: #e8dff7;
+    border-radius: 8px;
+    border: 2px solid #6b5f9d;
+    width: 50%;        
+  }
+  
+  .calendar-title {
+    color: #6b5f9d;
+  }
+  
+  .date-input {
+    width: 40%;
+    border-color: #6b5f9d;
+    border: 2.5px solid #6b5f9d;
+    margin-left: 50px;
+  }
+  
+  .calendar-icon {
+    font-size: 1.2rem;
+    color: black;
+    margin-right: 50px;
+  }
+  
+  .calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 10px;
+    color: #6b5f9d;
+    padding: 30px;
+  }
+  
+  .day-name {
+    font-weight: bold;
+    text-align: center;
+  }
+  
+  .day {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 2.5rem;
+    border-radius: 80%;
+    background-color: #e8dff7;
+    color: #6b5f9d;
+    font-size: 1rem;
+  }
+  
+  .day:hover {
+    background-color: #d1c4e9;
+    cursor: pointer;
+  }
+  
+  .selected-day {
+    background-color: #6b5f9d;
+    color: white;
+  }
+
+  /*modal*/
+  .modal-content {
+    background-color: #EDEEFF;
+    border-radius: 10px;
+  }
+
+  .modal-header, .modal-footer {
+    background-color: #EDEEFF;
+    border: none;
+  }
+
+  .modal-title, .list-group-item {
+    color: black;
+    text-align: center;
+  }
+
+  .list-group-item {
+    background-color: transparent;
+    font-weight: 500;
+    padding: 8px 0;
+  }

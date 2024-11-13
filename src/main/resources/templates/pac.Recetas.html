@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorate="_layoutPaciente">
+
+    <head>
+        
+        <link rel="stylesheet" href="/css/estilitosPaciente.css"/>
+        <title>Recetas</title>
+        <style>
+            .container .mt-6 {
+                position: absolute;
+                background: white;
+                border-radius: 15px;
+                height: 400px;
+                align-content: center;
+                padding: 0 45px;
+            }
+
+            .container .mt-6 th {
+                text-align: center;
+            }
+        </style>
+    </head>
+    <body style="background: #EDEEFF">
+        <div layout:fragment="content">
+            <div class="tab-content mt-5" id="pills-tabContent">
+                <div class="tab-pane fade show active mt-5" id="pills-recetas" role="tabpanel" aria-labelledby="pills-recetas-tab">
+                    <div class="container">
+                            <div class="container mt-6">
+                                <div class="table-responsive " style="max-height: 400px; overflow-y: auto;">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Código</th>
+                                                <th>Fecha de prescripción</th>
+                                                <th>Fecha de caducidad</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody  class="text-center" id="tableBody">
+                                            <!-- Aquí se llenará el contenido de la tabla -->
+                                        </tbody>
+                                    </table>
+
+                                    <!-- Paginación -->
+                                    <div id="pagination-container" class="pagination-container">
+                                        <ul id="pagination" class="pagination justify-content-center"></ul>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script layout:fragment="script">
+            //Tabla
+            const data = [
+                {codigo: '001', prescripcion: '2024-06-08', caducidad: '2024-06-20'},
+                {codigo: '002', prescripcion: '2024-06-08', caducidad: '2024-06-20'},
+                {codigo: '003', prescripcion: '2024-06-08', caducidad: '2024-06-20'},
+                {codigo: '004', prescripcion: '2024-06-08', caducidad: '2024-06-20'},
+                {codigo: '005', prescripcion: '2024-06-08', caducidad: '2024-06-20'},
+                {codigo: '006', prescripcion: '2024-06-08', caducidad: '2024-06-20'},
+                {codigo: '007', prescripcion: '2024-06-08', caducidad: '2024-06-20'},
+                {codigo: '008', prescripcion: '2024-06-08', caducidad: '2024-06-20'},
+                {codigo: '009', prescripcion: '2024-06-08', caducidad: '2024-06-20'},
+                {codigo: '010', prescripcion: '2024-06-08', caducidad: '2024-06-20'},
+                {codigo: '011', prescripcion: '2024-06-08', caducidad: '2024-06-20'}
+            ];
+
+            const rowsPerPage = 5;
+            let currentPage = 1;
+
+            function renderTable(page) {
+                const start = (page - 1) * rowsPerPage;
+                const end = start + rowsPerPage;
+                const paginatedData = data.slice(start, end);
+
+                const tableBody = document.getElementById('tableBody');
+                tableBody.innerHTML = '';
+
+                paginatedData.forEach(item => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td class="text-center">${item.codigo}</td>
+                        <td class="text-center">${item.prescripcion}</td>
+                        <td class="text-center">${item.caducidad}</td>
+                        <td>
+                        <button class="btn btn-info btn-sm"><i class="fa-sharp fa-solid fa-eye" style="color: #000000;"></i></button>
+                        <button class="btn btn-danger btn-sm"><i class="bi bi-file-earmark-arrow-down"></i></button>
+                        </td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+            }
+
+            //Paginacion
+            function renderPagination() {
+                const totalPages = Math.ceil(data.length / rowsPerPage);
+                const pagination = document.getElementById('pagination');
+                pagination.innerHTML = ''; // Clear previous content
+
+                const showEllipsis = totalPages > 5;
+
+                // Previous button
+                const prevLi = document.createElement('li');
+                prevLi.className = 'page-item' + (currentPage === 1 ? ' disabled' : '');
+                prevLi.innerHTML = `<a class="page-link" href="#" aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>`;
+                prevLi.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    if (currentPage > 1) {
+                        currentPage--;
+                        renderTable(currentPage);
+                        renderPagination();
+                    }
+                });
+                pagination.appendChild(prevLi);
+
+                for (let i = 1; i <= totalPages; i++) {
+                    if (i === 1 || i === totalPages || (i >= currentPage - 1 && i <= currentPage + 1)) {
+                        const li = document.createElement('li');
+                        li.className = 'page-item' + (i === currentPage ? ' active' : '');
+                        li.innerHTML = `<a class="page-link" href="#">${i}</a>`;
+                        li.addEventListener('click', (e) => {
+                            e.preventDefault();
+                            currentPage = i;
+                            renderTable(currentPage);
+                            renderPagination();
+                        });
+                        pagination.appendChild(li);
+                    } else if (showEllipsis && (i === 2 || i === totalPages - 1) && !(pagination.lastChild && pagination.lastChild.innerText === '...')) {
+                        const li = document.createElement('li');
+                        li.className = 'page-item disabled';
+                        li.innerHTML = '<span class="page-link">...</span>';
+                        pagination.appendChild(li);
+                    }
+                }
+
+                // Next button
+                const nextLi = document.createElement('li');
+                nextLi.className = 'page-item' + (currentPage === totalPages ? ' disabled' : '');
+                nextLi.innerHTML = `<a class="page-link" href="#" aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>`;
+                nextLi.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    if (currentPage < totalPages) {
+                        currentPage++;
+                        renderTable(currentPage);
+                        renderPagination();
+                    }
+                });
+                pagination.appendChild(nextLi);
+            }
+
+            // Initialize the table and pagination
+            renderTable(currentPage);
+            renderPagination();
+        </script>
+    </body>
+
+</html>

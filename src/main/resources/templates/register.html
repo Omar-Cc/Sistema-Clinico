@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Registro</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/register.css">
+</head>
+
+<body>
+    <div id="app" class="texto">
+        <div class="cab text-center">
+            <label for="customRange3" class="form-label">Paso {{ currentStep }}</label>
+            <input type="range" class="form-range w-25" min="0" max="2" step="1" id="customRange3" v-model="currentStep"
+                style="height: 20px;">
+            <div class="mt-2">
+                <span>Paso actual: {{ currentStep }}</span>
+            </div>
+        </div>
+        <div class="text-center">
+            <h1>REGISTRATE</h1>
+        </div>
+        <div class="container">
+            <form>
+
+                <!-- Primera Parte -->
+                <div id="primera-parte" class="form-section active centered">
+                    <!-- Mostrar mensaje de error si existe -->
+                    <div>
+                        <span style="color: red;">{{ errorMessage }}</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="documento">DNI</label>
+                        <input type="text" id="documento" v-model="documento" placeholder="Ingrese su DNI" required><br>
+                        <span v-if="documento.length !== 8" style="color: red;">El DNI debe tener 8 caracteres</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="fecha_nacimiento">Fecha de Nacimiento</label>
+                        <input type="text" id="fecha_nacimiento" v-model="fecha_nacimiento"
+                            placeholder="Ingrese su fecha de nacimiento" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="codigo-verificador">Código Verificador</label>
+                        <input type="text" id="codigo-verificador" v-model="codigoVerificacion"
+                            placeholder="Ingrese el código verificador" required>
+                    </div>
+                    <div class="boton">
+                        <button type="button" @click="consultar" :disabled="documento.length !== 8">Consultar</button>
+                    </div>
+                </div>
+
+                <!-- Segunda Parte -->
+                <div id="segunda-parte" class="form-section">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="nombre">Nombre</label>
+                            <input type="text" id="nombre" v-model="nombre" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="apellido">Apellidos</label>
+                            <input type="text" id="apellido" v-model="apellido" readonly>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="direccion">Dirección</label>
+                            <input type="text" id="direccion" v-model="direccion" placeholder="Ingrese su dirección">
+                        </div>
+                        <div class="form-group">
+                            <label for="genero">Sexo</label>
+                            <select id="genero" class="form-select" v-model="genero" required>
+                                <option value="" disabled selected>Seleccione su sexo</option>
+                                <option value="Hombre">Hombre</option>
+                                <option value="Mujer">Mujer</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="telefono">Teléfono</label>
+                            <input type="text" id="telefono" v-model="telefono" placeholder="Ingrese su teléfono">
+                        </div>
+                        <div class="form-group">
+                            <label for="correo">Correo</label>
+                            <input type="email" id="correo" v-model="correo" placeholder="Ingrese su correo" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="contrasena">Contraseña</label>
+                            <input type="password" id="contrasena" v-model="contrasena"
+                                placeholder="Ingrese su contrasena" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="repetircontraseña">Repita su Contraseña</label>
+                            <input type="password" id="repetircontraseña" v-model="repetirContraseña"
+                                placeholder="Repita su contrasena" required>
+                            <span v-if="!passwordsMatch" style="color: red;">No es igual a Contraseña</span>
+                        </div>
+                    </div>
+                    <div class="form-group error-message">
+                        <span style="color: red;">{{ errorMessage }}</span>
+                    </div>
+                    <div class="boton">
+                        <button :disabled="!isFormValid" @click="registrar">Registrar</button>
+                        <p v-if="errorMessage" style="color: red;">{{ errorMessage }}</p>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-resource/0.6.1/vue-resource.min.js"
+        integrity="sha512-NuUIe6TWdEivPTcxnihx2e6r2xQFEFPrJfpdZWoBwZF6G51Rphcf5r/1ZU/ytj4lyHwLd/YGMix4a5LqAN15XA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        new Vue({
+            el: "#app",
+            data: {
+                usuario: {
+                    documento: '',
+                    contrasena: '',
+                    email: '',
+                    fechaCreacion: '',
+                    roles: []
+                },
+                paciente: {
+                    nombre: '',
+                    apellido: '',
+                    fecha_nacimiento: '',
+                    genero: '',
+                    direccion: '',
+                    telefono: '',
+                    usuario: { id: '' },
+                    ubigeo: { id: '' }
+                },
+                documento: '',
+                fecha_nacimiento: '',
+                codigoVerificacion: '',
+                correo: '',
+                contrasena: '',
+                repetirContraseña: '',
+                nombre: '',
+                apellido: '',
+                genero: '',
+                direccion: '',
+                telefono: '',
+                ubigeo: '',
+                errorMessage: ''
+            },
+            computed: {
+                isFormValid() {
+                    return this.documento && this.fecha_nacimiento && this.codigoVerificacion && this.correo &&
+                        this.contrasena && this.repetirContraseña && this.contrasena === this.repetirContraseña;
+                },
+                passwordsMatch() {
+                    return this.contrasena === this.repetirContraseña;
+                }
+            },
+            methods: {
+                consultar() {
+                    if (this.documento.length !== 8) {
+                        this.errorMessage = "El DNI debe tener 8 caracteres";
+                        return;
+                    }
+
+                    const datos = {
+                        documento: this.documento,
+                        fecha_nacimiento: this.fecha_nacimiento,
+                        codigoVerificacion: this.codigoVerificacion
+                    };
+
+                    this.$http.post('/api-ext/usuarios/verificar', datos)
+                        .then(response => {
+                            if (response.status === 200) {
+                                const resultadoApi = response.data;
+                                if (resultadoApi && resultadoApi.nombres && resultadoApi.apellido_paterno && resultadoApi.apellido_materno) {
+                                    this.nombre = resultadoApi.nombres;
+                                    this.apellido = resultadoApi.apellido_paterno + " " + resultadoApi.apellido_materno;
+                                    this.mostrarSegundaParte();
+                                } else {
+                                    this.errorMessage = "Datos incompletos recibidos de la API";
+                                }
+                            } else {
+                                this.errorMessage = "Error al verificar los datos1: " + response.data;
+                            }
+                        })
+                        .catch(error => {
+                            this.errorMessage = "Error al verificar los datos2: " + (error.response ? error.response.data : error.message);
+                        });
+                },
+
+                mostrarSegundaParte() {
+                    document.getElementById('primera-parte').classList.remove('active');
+                    document.getElementById('segunda-parte').classList.add('active');
+                },
+
+                async registrar() {
+                    if (!this.passwordsMatch) {
+                        this.errorMessage = 'Las contraseñas no coinciden';
+                        return;
+                    }
+                    if (!this.genero) {
+                        this.errorMessage = 'Debe seleccionar un género';
+                        return;
+                    }
+                    try {
+                        const datosUsuario = {
+                            documento: this.documento,
+                            contrasena: this.contrasena,
+                            email: this.correo,
+                            fechaCreacion: new Date().toISOString().split('T')[0]
+                        };
+
+                        const responseUsuario = await this.$http.post('/api/usuarios', datosUsuario);
+                        if (!responseUsuario.ok) {
+                            throw new Error('Error al crear el usuario');
+                        }
+
+                        // Convertir fecha_nacimiento al formato yyyy-MM-dd
+                        const fechaNacimientoFormatted = this.fecha_nacimiento.split('/').reverse().join('-');
+                        console.log('fechaNacimientoFormatted:', fechaNacimientoFormatted);
+                        const datosPaciente = {
+                            nombre: this.nombre,
+                            apellido: this.apellido,
+                            fechaNacimiento: fechaNacimientoFormatted,
+                            genero: this.genero,
+                            direccion: this.direccion,
+                            telefono: this.telefono,
+                            fechaRegistro: new Date().toISOString().split('T')[0],
+                            usuario: { id: responseUsuario.data.id },
+                            ubigeo: { id: 12}
+                        };
+
+                        const responsePaciente = await this.$http.post('/api/pacientes', datosPaciente);
+                        if (!responsePaciente.ok) {
+                            throw new Error('Error al crear el paciente');
+                        }
+
+                        alert('Registro exitoso');
+                        window.location.href = '/login';
+                    } catch (error) {
+                        this.errorMessage = error.message;
+                        console.error('Error al registrar:', error);
+                        console.log('Error al registrar:', error);
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

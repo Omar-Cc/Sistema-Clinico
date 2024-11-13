@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farmacia</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="/css/farmacia.css">
+</head>
+
+<body class="bg-light">
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8 text-center">
+                <label for="recetaInput" class="form-label">Receta Médica</label>
+                <div class="input-container mb-3">
+                    <input type="text" class="form-control" id="recetaInput">
+                    <div class="icon-container">
+                        <i class="bi bi-search"></i>
+                    </div>
+                </div>
+                <table class="table table-bordered" id="medicamentosTable">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Código</th>
+                            <th>Medicamento</th>
+                            <th>Precio</th>
+                            <th>Stock</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td id="codigo1">001</td>
+                            <td id="medicamento1">Paracetamol</td>
+                            <td id="precio1">1.20</td>
+                            <td id="stock1">100 unidades</td>
+                        </tr>
+                        <tr>
+                            <td id="codigo2">002</td>
+                            <td id="medicamento2">Medicamento</td>
+                            <td id="precio2">Precio</td>
+                            <td id="stock2">Stock</td>
+                        </tr>
+                        <tr>
+                            <td id="codigo3">003</td>
+                            <td id="medicamento3">Medicamento</td>
+                            <td id="precio3">Precio</td>
+                            <td id="stock3">Stock</td>
+                        </tr>
+                        <tr>
+                            <td id="codigo4">004</td>
+                            <td id="medicamento4">Medicamento</td>
+                            <td id="precio4">Precio</td>
+                            <td id="stock4">Stock</td>
+                        </tr>
+                        <tr>
+                            <td id="codigo5">005</td>
+                            <td id="medicamento5">Medicamento</td>
+                            <td id="precio5">Precio</td>
+                            <td id="stock5">Stock</td>
+                        </tr>
+                        <tr>
+                            <td id="codigo6">006</td>
+                            <td id="medicamento6">Medicamento</td>
+                            <td id="precio6">Precio</td>
+                            <td id="stock6">Stock</td>
+                        </tr>
+                        <tr>
+                            <td id="codigo7">007</td>
+                            <td id="medicamento7">Medicamento</td>
+                            <td id="precio7">Precio</td>
+                            <td id="stock7">Stock</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div>
+        <button class="btn btn-dark" onclick="generarFactura()">Generar factura</button>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="Farmacia.js"></script>
+    <script>
+        function generarFactura() {
+            document.getElementById("codigo1").textContent = "001";
+            document.getElementById("medicamento1").textContent = "Ibuprofeno";
+            document.getElementById("precio1").textContent = "2.50";
+            document.getElementById("stock1").textContent = "50 unidades";
+        }
+    </script>
+</body>
+
+</html>

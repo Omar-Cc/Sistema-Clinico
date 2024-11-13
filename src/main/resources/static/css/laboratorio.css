@@ -1,0 +1,27 @@
+body{
+  background: #EDEEFF;
+}
+
+.container .mt-6 {
+    position: absolute;
+    background: white;
+    border-radius: 15px;
+    height: auto;
+    align-content: center;
+    padding: 0 45px;
+    padding-bottom: 10px; 
+  }
+
+.container .mt-6 th {
+  text-align: center;
+  }
+  
+.pagination .page-link {
+  color: black;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #000;
+    color: white;
+    border-color: #000;
+}

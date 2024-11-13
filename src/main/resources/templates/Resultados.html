@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+  <link rel="stylesheet" href="/css/laboratorio.css">
+  <title>Resultados</title>
+</head>
+
+<body >
+      <div class="container">
+        <div>
+          <div class="container mt-6 mt-5">
+            <div class="table-responsive" style="max-height: 600px; overflow-y: auto;">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th>Fecha</th>
+                    <th>Área</th>
+                    <th>Tipo de prueba</th>
+                    <th>Estado</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody id="tableBody">
+                  <!-- Aquí se llenará el contenido de la tabla -->
+                </tbody>
+              </table>
+
+              <!-- Paginación -->
+              <div id="pagination-container" class="pagination-container">
+                <ul id="pagination" class="pagination justify-content-center"></ul>
+              </div>
+              <div class="d-flex justify-content-center mt-3">
+                <a class="btn btn-dark" id="crear" href="Pruebas1.html">Crear</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="detailsModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalLabel">Detalles de la Prueba</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" id="modalContent">
+          <!-- Aquí se llenará el contenido del modal -->
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
+  <script>
+    const data = [
+      { fecha: '23 Mayo, 2024', area: 'Cardiología', tipoPrueba: 'Electrocardiograma', estado: 100 },
+      { fecha: '23 Mayo, 2024', area: 'Dermatología', tipoPrueba: 'Biopsia', estado: 75 },
+      { fecha: '23 Mayo, 2024', area: 'Medicina General', tipoPrueba: 'Consulta', estado: 50 },
+      { fecha: '23 Mayo, 2024', area: 'Medicina General', tipoPrueba: 'Chequeo', estado: 0 },
+      { fecha: '23 Mayo, 2024', area: 'Cardiología', tipoPrueba: 'Ecocardiograma', estado: 100 },
+      { fecha: '23 Mayo, 2024', area: 'Cardiología', tipoPrueba: 'Prueba de esfuerzo', estado: 100 },
+      { fecha: '23 Mayo, 2024', area: 'Cardiología', tipoPrueba: 'Consulta', estado: 100 },
+      { fecha: '23 Mayo, 2024', area: 'Cardiología', tipoPrueba: 'Electrocardiograma', estado: 100 },
+      { fecha: '23 Mayo, 2024', area: 'Cardiología', tipoPrueba: 'Ecocardiograma', estado: 100 },
+      { fecha: '23 Mayo, 2024', area: 'Cardiología', tipoPrueba: 'Consulta', estado: 100 },
+      { fecha: '23 Mayo, 2024', area: 'Cardiología', tipoPrueba: 'Biopsia', estado: 75 },
+    ];
+
+    const rowsPerPage = 5;
+    let currentPage = 1;
+
+    function renderTable(page) {
+      const start = (page - 1) * rowsPerPage;
+      const end = start + rowsPerPage;
+      const paginatedData = data.slice(start, end);
+
+      const tableBody = document.getElementById('tableBody');
+      tableBody.innerHTML = '';
+
+      paginatedData.forEach(item => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td class="text-center">${item.fecha}</td>
+          <td class="text-center">${item.area}</td>
+          <td class="text-center">${item.tipoPrueba}</td>
+          <td class="text-center">
+            <div class="progress">
+              <div class="progress-bar" role="progressbar" style="width: ${item.estado}%; background-color: ${item.estado === 100 ? 'green' : item.estado > 50 ? 'orange' : 'red'};">${item.estado}%</div>
+            </div>
+          </td>
+          <td class="text-center">
+            ${item.estado >= 100 ? `
+              <button class="btn btn-info btn-sm" onclick="showDetails('${item.medico}', '${item.tipoPrueba}', ${item.estado})"><i class="fa fa-eye"></i></button>
+              ` : ` `}
+          </td>
+        `;
+        tableBody.appendChild(row);
+      });
+    }
+
+    function renderPagination() {
+      const totalPages = Math.ceil(data.length / rowsPerPage);
+      const pagination = document.getElementById('pagination');
+      pagination.innerHTML = '';
+
+      const showEllipsis = totalPages > 5;
+
+      // Previous button
+      const prevLi = document.createElement('li');
+      prevLi.className = 'page-item' + (currentPage === 1 ? ' disabled' : '');
+      prevLi.innerHTML = `<a class="page-link" href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>`;
+      prevLi.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (currentPage > 1) {
+          currentPage--;
+          renderTable(currentPage);
+          renderPagination();
+        }
+      });
+      pagination.appendChild(prevLi);
+
+      for (let i = 1; i <= totalPages; i++) {
+        if (i === 1 || i === totalPages || (i >= currentPage - 1 && i <= currentPage + 1)) {
+          const li = document.createElement('li');
+          li.className = 'page-item' + (i === currentPage ? ' active' : '');
+          li.innerHTML = `<a class="page-link" href="#">${i}</a>`;
+          li.addEventListener('click', (e) => {
+            e.preventDefault();
+            currentPage = i;
+            renderTable(currentPage);
+            renderPagination();
+          });
+          pagination.appendChild(li);
+        } else if (showEllipsis && (i === 2 || i === totalPages - 1) && !(pagination.lastChild && pagination.lastChild.innerText === '...')) {
+          const li = document.createElement('li');
+          li.className = 'page-item disabled';
+          li.innerHTML = '<span class="page-link">...</span>';
+          pagination.appendChild(li);
+        }
+      }
+
+      // Next button
+      const nextLi = document.createElement('li');
+      nextLi.className = 'page-item' + (currentPage === totalPages ? ' disabled' : '');
+      nextLi.innerHTML = `<a class="page-link" href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>`;
+      nextLi.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (currentPage < totalPages) {
+          currentPage++;
+          renderTable(currentPage);
+          renderPagination();
+        }
+      });
+      pagination.appendChild(nextLi);
+    }
+
+    function showDetails(medico, tipoPrueba, estado) {
+      let resultados = '';
+
+      switch (tipoPrueba) {
+        case 'Electrocardiograma':
+          resultados = `
+            <p><strong>Frecuencia cardíaca:</strong> 72 bpm</p>
+            <p><strong>Ritmo:</strong> Sinusal</p>
+            <p><strong>Intervalos:</strong></p>
+            <ul>
+              <li>PR: 160 ms</li>
+              <li>QRS: 80 ms</li>
+              <li>QT: 400 ms</li>
+            </ul>
+            <p><strong>Conclusiones:</strong> Ritmo normal, sin signos de isquemia.</p>
+          `;
+          break;
+        case 'Biopsia':
+          resultados = `
+            <p><strong>Tipo de tejido:</strong> Epitelial</p>
+            <p><strong>Diagnóstico:</strong> Adenocarcinoma</p>
+            <p><strong>Grado:</strong> Moderado</p>
+            <p><strong>Conclusiones:</strong> Se recomienda seguimiento y tratamiento.</p>
+          `;
+          break;
+        default:
+          resultados = `<p>No hay resultados disponibles para este tipo de prueba.</p>`;
+      }
+
+      const modalContent = `
+        <p><strong>Médico:</strong> ${medico}</p>
+        <p><strong>Tipo de Prueba:</strong> ${tipoPrueba}</p>
+        <p><strong>Estado:</strong> ${estado}% Completado</p>
+        ${resultados}
+        <a href="#" onclick="downloadResult('${medico}', '${tipoPrueba}')" class="btn btn-primary">Descargar Resultado</a>
+      `;
+
+      document.getElementById('modalContent').innerHTML = modalContent;
+      const modal = new bootstrap.Modal(document.getElementById('detailsModal'));
+      modal.show();
+    }
+
+    function downloadResult(medico, tipoPrueba) {
+      const link = document.createElement('a');
+      link.href = `path/to/results/${medico}_${tipoPrueba}.pdf`; // Reemplaza con la ruta correcta
+      link.download = `${medico}_${tipoPrueba}.pdf`; // Nombre del archivo que se descargará
+      link.click();
+    }
+    
+
+    // Initialize the table and pagination
+    renderTable(currentPage);
+    renderPagination();
+
+   
+
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>

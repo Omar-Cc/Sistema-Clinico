@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administrador</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link rel="stylesheet" href="/css/estilitosPaciente.css">
+</head>
+
+<body>
+    <div id="app">
+        <!-- header -->
+        <header class="bg-body-tertiary d-flex justify-content-end align-items-center" style="height: 10vh">
+            <a class="navbar-brand fs-3 mb-0 me-4" href="#"><i class="fa-solid fa-circle-user"></i> Usuario</a>
+        </header>
+
+        <!-- Navbar -->
+        <nav id="navbar">
+            <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar"
+                aria-labelledby="offcanvasNavbarLabel" style="max-width: 300px; padding: 20px;">
+                <div class="offcanvas-header mb-3">
+                    <h5 class="offcanvas-title" id="offcanvasNavbarLabel">@YourCompany</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body d-flex flex-column align-items-center  h-100">
+                    <ul class="nav nav-pills flex-column mb-auto text-center" style="width: 80%;">
+                        <li class="nav-item mb-4">
+                            <a class="nav-link fs-5 w-100" href="/administrador/usuarios" id="link-usuarios">
+                                <i class="fa-sharp-duotone fa-solid fa-calendar-days"></i>Usuarios
+                            </a>
+                        </li>
+                        <li class="nav-item mb-4">
+                            <a class="nav-link fs-5 w-100" href="/administrador/roles" id="link-roles">
+                                <i class="fa-sharp-duotone fa-solid fa-pen-to-square"></i>Roles
+                            </a>
+                        </li>
+                        <li class="nav-item mb-4">
+                            <a class="nav-link fs-5 w-100" href="/administrador/permisos" id="link-permisos">
+                                <i class="fa-duotone fa-solid fa-chart-simple"></i>Permisos
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link fs-5 w-100" href="/administrador/reportes" id="link-reportes">
+                                <i class="fa-regular fa-money-bill-1"></i>Reportes
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <h5 class="offcanvas-title text-center">
+                    <a class="text-decoration-none text-dark" href="/logout">
+                        <i class="fa-sharp-duotone fa-solid fa-arrow-right-from-bracket"></i> Cerrar Sesión
+                    </a>
+                </h5>
+            </div>
+
+        </nav>
+
+
+        <!-- Flecha izquierda flotante para abrir el offcanvas -->
+        <div class="contenedor-arrow" id="arrowLeft">
+            <div class="toggle-arrow "><i class="fa-sharp-duotone fa-solid fa-chevron-right"></i></div>
+        </div>
+
+        <!-- Modal para mostrar el usuario -->
+        <div class="modal fade" id="userModal" tabindex="-1" aria-labelledby="userModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="userModalLabel"><i class="fa-solid fa-circle-user"></i> Usuario</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <h4>Datos Personales: </h4>
+                        <p><strong>Nombres:</strong> Jennifer Alejandra</p>
+                        <p><strong>Apellidos:</strong> Alburqueque Palacin </p>
+                        <p><strong>DNI:</strong> 32836283</p>
+                        <p><strong>Fecha de Nacimiento:</strong> 23/34/23</p>
+                        <p><strong>Género:</strong> Hombre</p>
+                        <p><strong>Dirección:</strong> Psj.Virgen de la Merced 123</p>
+                        <p><strong>Teléfono:</strong> 938869274</p>
+                        <p><strong>Correo electrónico:</strong> jenniferpalacin02@gmail.com</p><br>
+
+                        <h4>Contactos de Emergencia: </h4>
+                        <p><strong>Nombres:</strong> Ayelen Dafne</p>
+                        <p><strong>Apellidos:</strong> Via Palacin </p>
+                        <p><strong>Relación con el paciente:</strong> Prima</p>
+                        <p><strong>Teléfono:</strong> 7t5723293</p>
+                        <p><strong>Correo electrónico:</strong> ayedaf27@gmail.com</p><br>
+
+                        <h4>Información de seguro: </h4>
+                        <p><strong>Nombre de la Aseguradora:</strong> Paula Arias</p>
+                        <p><strong>Número de póliza de seguro:</strong> 953</p><br>
+
+                        <h4>Preferencias de Atención: </h4>
+                        <p><strong>Idioma para la atención:</strong> Ayelen Dafne</p>
+                        <p><strong>Opciones de notificación:</strong> email, SMS, llamadas</p>
+
+                        <div class="text-center"> <!-- Agregado para centrar el botón -->
+                            <button class="btn btn-secondary" data-bs-toggle="modal"
+                                data-bs-target="#changeDetailsModal">Cambiar
+                                Datos</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal para cambiar datos personales -->
+        <div class="modal fade" id="changeDetailsModal" tabindex="-1" aria-labelledby="changeDetailsModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="changeDetailsModalLabel">Cambiar Datos
+                            Personales</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Formulario para cambiar datos personales.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="height: 90vh">
+            <div layout:fragment="content">
+
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+		crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js"
+		integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/vue-resource/0.6.1/vue-resource.min.js"
+		integrity="sha512-NuUIe6TWdEivPTcxnihx2e6r2xQFEFPrJfpdZWoBwZF6G51Rphcf5r/1ZU/ytj4lyHwLd/YGMix4a5LqAN15XA=="
+		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="/js/navbar.js"></script>
+    <script>
+        // JavaScript para activar la pestaña correcta según la URL actual
+        const links = document.querySelectorAll('.nav-link');
+
+        links.forEach(link => {
+            if (link.href === window.location.href) {
+                link.classList.add('active');
+            } else {
+                link.classList.remove('active');
+            }
+        });
+    </script>
+
+    <script layout:fragment="script">
+
+    </script>
+</body>
+
+</html>

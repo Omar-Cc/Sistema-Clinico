@@ -1,0 +1,25 @@
+.card-custom {
+    background-color: #f0f4ff;
+    border-radius: 15px;
+    padding: 20px;
+    margin-top: 20px;
+  }
+  
+  .search-bar {
+    background-color: #f8f5fc;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    padding-left: 40px;
+    padding-right: 10px;
+    max-width: 300px;
+  }
+  
+  .progress-bar-custom {
+    background-color: #d3d3d3;
+    border-radius: 20px;
+  }
+  
+  .progress-custom {
+    background-color: #e0e0e0;
+  }
+  
